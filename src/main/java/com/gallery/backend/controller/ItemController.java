@@ -1,5 +1,8 @@
 package com.gallery.backend.controller;
 
+import com.gallery.backend.ItemRepository;
+import com.gallery.backend.entity.Item;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -9,13 +12,12 @@ import java.util.List;
 @RestController
 public class ItemController {
 
-    @GetMapping("/api/items")
-    public List<String> getItems(){
-        List<String> items = new ArrayList<>();
+    @Autowired
+    ItemRepository itemRepository;
 
-        items.add("A");
-        items.add("B");
-        items.add("C");
+    @GetMapping("/api/items")
+    public List<Item> getItems(){
+        List<Item> items = itemRepository.findAll();
 
         return items;
     }
